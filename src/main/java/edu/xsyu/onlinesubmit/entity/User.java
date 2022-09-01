@@ -39,7 +39,7 @@ public class User extends BaseEntity {
      * 安全角色
      */
     @Column
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     /**

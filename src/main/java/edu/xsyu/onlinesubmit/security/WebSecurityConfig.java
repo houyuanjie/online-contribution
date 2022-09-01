@@ -3,16 +3,10 @@ package edu.xsyu.onlinesubmit.security;
 import edu.xsyu.onlinesubmit.enumeration.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,16 +29,14 @@ public class WebSecurityConfig {
                          *     EDITOR 角色则是 CONTENT_PATH/editor/
                          * 以此类推, 请在 controller 包和 jsp 包中保持这样的目录结构以方便识别
                          */
-                        .antMatchers("/user/**").hasRole(Role.USER.name())
-                        .antMatchers("/editor/**").hasRole(Role.EDITOR.name())
+                        .antMatchers("/user/**").hasAnyRole(Role.USER.name(), Role.EDITOR.name(), Role.ADMIN.name())
+                        .antMatchers("/editor/**").hasAnyRole(Role.EDITOR.name(), Role.ADMIN.name())
                         .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
                         /*
                          * 请将 jsp 中要使用到的静态资源放置在 /public/** 或者 /static/**
-                         * 并在下面配置为 permitAll
+                         * 其它端口配置为 permitAll
                          */
-                        .mvcMatchers(HttpMethod.GET, "/", "/home", "/index", "/login").permitAll()
-                        .antMatchers(HttpMethod.GET, "/layui/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(login -> login
                         .loginPage("/login")

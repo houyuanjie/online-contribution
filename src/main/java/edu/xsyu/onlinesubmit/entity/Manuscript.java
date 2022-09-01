@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 /**
  * 稿件
@@ -59,8 +58,14 @@ public class Manuscript extends BaseEntity {
      * 稿件审核状态
      */
     @Column
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private ManuscriptReviewStatus reviewStatus;
+
+    /**
+     * 稿件文件
+     */
+    @OneToOne
+    private BytesFile bytesFile;
 
     /**
      * 投稿账户
