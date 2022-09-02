@@ -68,6 +68,6 @@ public class Publication extends BaseEntity {
     private Set<Manuscript> manuscripts;
 
     @OneToOne
-    private BytesFile picture;
+    private BytesFile coverPicture;
 
 }

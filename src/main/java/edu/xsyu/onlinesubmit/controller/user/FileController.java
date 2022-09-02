@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,17 +56,25 @@ public class FileController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * 文件上传接口 POST => /online-submit/user/file/upload
+     */
     @PostMapping("/upload")
     public ResponseEntity<Map<String, Object>> upload(@RequestParam("file") MultipartFile file) throws IOException {
-        System.out.println("[upload]" + Arrays.toString(file.getBytes()));
         var bytesFile = BytesFile.from(file);
         fileRepository.save(bytesFile);
-        var location = servletContext.getContextPath() + "/user/file/id/" + bytesFile.getId();
+        var id = bytesFile.getId();
+        var location = servletContext.getContextPath() + "/user/file/id/" + id;
 
         var map = new HashMap<String, Object>();
         map.put("msg", "上传成功");
         map.put("code", HttpStatus.CREATED.value());
-        map.put("data", Map.of("location", location));
+        map.put("data",
+                Map.of(
+                        "id", id,
+                        "location", location
+                )
+        );
 
         return ResponseEntity.ok(map);
     }

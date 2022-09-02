@@ -4,173 +4,71 @@
 <html>
 <head>
     <%@ include file="common-head.jsp" %>
-    <title>layout 管理界面大布局示例 - Layui</title>
-    <style>
-        /* 移动端 */
-        @media screen and (max-width: 768px) {
-            .layui-layout-admin .layui-layout-left,
-            .layui-layout-admin .layui-body,
-            .layui-layout-admin .layui-footer {
-                left: 0;
-            }
-
-            .layui-layout-admin .layui-side {
-                left: -300px;
-            }
-        }
-    </style>
+    <title>首页 - 在线投稿网站</title>
 </head>
 <body>
 
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo layui-hide-xs layui-bg-black">layout demo</div>
-        <!-- 头部区域（可配合layui 已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <!-- 移动端显示 -->
-            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-                <i class="layui-icon layui-icon-spread-left"></i>
-            </li>
+    <%@ include file="common-body-layui-header.jsp" %>
 
-            <li class="layui-nav-item layui-hide-xs"><a href="">nav 1</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="">nav 2</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="">nav 3</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">nav groups</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">menu 11</a></dd>
-                    <dd><a href="">menu 22</a></dd>
-                    <dd><a href="">menu 33</a></dd>
-                </dl>
-            </li>
+    <%@ include file="common-body-layui-side.jsp" %>
 
-
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
-                <a href="javascript:;">
-                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
-                         class="layui-nav-img">
-                    tester
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">Your Profile</a></dd>
-                    <dd><a href="">Settings</a></dd>
-                    <dd><a href="">Sign out</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
-                <a href="javascript:;">
-                    <i class="layui-icon layui-icon-more-vertical"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">menu group 1</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">menu 1</a></dd>
-                        <dd><a href="javascript:;">menu 2</a></dd>
-                        <dd><a href="javascript:;">menu 3</a></dd>
-                        <dd><a href="">the links</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">menu group 2</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">list 1</a></dd>
-                        <dd><a href="javascript:;">list 2</a></dd>
-                        <dd><a href="">超链接</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="javascript:;">click menu item</a></li>
-                <li class="layui-nav-item"><a href="">the links</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="layui-body">
+    <div class="layui-body" style="padding: 30px; min-width: 1000px;">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px;">
-            内容主体区域
 
-            <br><br>
-
-            <blockquote class="layui-elem-quote layui-text">
-                <ul>
-                    <li>
-                        你也可以单独打开管理界面大布局的演示页面：
-                        <a class="layui-btn layui-btn-normal" href="layout-admin.html" target="_blank">单独打开</a>
-                    </li>
-
-                    <!--<li>
-                      该页面只是简单的管理系统的界面基础布局示例，并不是一整套界面布局方案，您可以关注基于 layui 的通用型管理系统界面模板解决方案：
-                      <a href="/layuiadmin/" target="_blank" class="layui-btn">layuiAdmin</a>
-                    </li>-->
-                    <li>
-                        layui 之所以赢得如此多人的青睐，更多是在于它“前后界面兼备”的能力。既可编织出绚丽的前台页面，又可满足繁杂的管理系统的界面需求。
-                        <br>layui 管理基本布局， 致力于让每一位开发者都能轻松搭建自己的管理系统模板。
-                    </li>
-                </ul>
-            </blockquote>
-
-            <a href="/docs/element/layout.html#admin" target="_blank" class="layui-btn">查看该布局代码</a>
-            <br><br><br>
-
-            <div class="layui-card layui-panel">
-                <div class="layui-card-header">
-                    下面是充数内容，为的是出现滚动条
-                </div>
-                <div class="layui-card-body">
-                    充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>你还真滑到了底部呀
-                </div>
+        <div class="layui-row">
+            <div class="layui-col-md9">
+                <fieldset class="layui-elem-field">
+                    <legend style="font-weight: bold;">网站简介</legend>
+                    <div class="layui-field-box" style="min-height: 30px;line-height: 30px;font-size: 16px;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在线投稿中心是一个自助投稿平台，方便各界投稿爱好者，可以24
+                        小时自助投稿。在线投稿中心编辑人员对于稿件根据作者的意向投递到的相关刊物进行审核，负责从作者注册会员一直到出刊期间的所
+                        有问题的沟通与解决。完美地解决了作者投稿到杂志社刊发的不易。同时也避免了错发在假刊等。
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在线投稿中心是基于服务社会大众而服务的产生的，与多家出版社
+                        均有合作，学科齐全，先后编辑出版了上千部学术著作，覆盖了医学、护理、教育、管理、经济、艺术、法律、历史、政治、传媒、计
+                        算机、电子信息、化工等几百个专业。
+                    </div>
+                </fieldset>
             </div>
-            <br><br>
+            <%--<div class="layui-col-md3">
+                你的内容 3/12
+            </div>--%>
+        </div>
 
-
+        <div class="layui-row">
+            <div class="layui-col-md9">
+                <fieldset class="layui-elem-field">
+                    <legend style="font-weight: bold;">投稿须知</legend>
+                    <div class="layui-field-box" style="min-height: 30px;line-height: 30px;font-size: 16px;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.收稿内容要求：立意新颖，观点明确，内容充实，论证严密，语
+                        言精炼，资料可靠，能及时反映所研究领域的最新成果。本刊尤为欢迎有新观点、新方法、新视角的稿件和专家稿件。
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.格式必备与顺序：标题、作者、作者单位、摘要、关键词、正文
+                        、注释或参考文献。
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.请在来稿末尾附上作者详细通讯地址。包括：收件人所在地的省
+                        、市、区、街道名称、邮政编码、联系电话、电子信箱、代收人的姓名以及本人要求等，务必准确。论文有图表的，请保证图片和表格
+                        的清晰，能和文字对应。
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.本刊实行无纸化办公，来稿一律通过电子邮件（WORD文档附件
+                        ）或QQ发送，严禁抄袭，文责自负，来稿必复，来稿不退，10日未见通知可自行处理。
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.本刊来稿直接由编辑人员审阅，疑难重点稿件送交相关专家审阅
+                        ，本刊坚持“公平、公正、公开、客观”的审稿原则，实行“三审三校”制度。
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.来稿一经采用，平台将发出《用稿通知单》，出刊迅速，刊物精
+                        美，稿件确认刊载后，赠送当期杂志1册。
+                        <br>
+                    </div>
+                </fieldset>
+            </div>
+            <%--<div class="layui-col-md3">
+                你的内容 3/12
+            </div>--%>
         </div>
     </div>
 
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        底部固定区域 <a href="<c:url value="/admin/hello"/>">Hello</a>
-    </div>
-</div>
-
-<script>
-    //JS
-    layui.use(['element', 'layer', 'util'], function () {
-        var element = layui.element
-            , layer = layui.layer
-            , util = layui.util
-            , $ = layui.$;
-
-        //头部事件
-        util.event('lay-header-event', {
-            //左侧菜单事件
-            menuLeft: function (othis) {
-                layer.msg('展开左侧菜单的操作', {icon: 0});
-            }
-            , menuRight: function () {
-                layer.open({
-                    type: 1
-                    , title: '更多'
-                    , content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
-                    , area: ['260px', '100%']
-                    , offset: 'rt' //右上角
-                    , anim: 5
-                    , shadeClose: true
-                    , scrollbar: false
-                });
-            }
-        });
-
-    });
-</script>
+    <%@ include file="common-body-layui-script.jsp" %>
 </body>
 </html>
