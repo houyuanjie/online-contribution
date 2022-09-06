@@ -25,17 +25,17 @@ public class DbSetup {
         var user = new User();
         user.setUsername("user");
         user.setName("user");
-        user.setPassword(passwordEncoder.encode("123"));
+        user.setPassword(passwordEncoder.encode("123456"));
         user.setRole(Role.USER);
-        user.setPhone("123");
+        user.setPhone("12345611111");
         userRepository.save(user);
 
         var admin = new User();
         admin.setUsername("admin");
         admin.setName("admin");
-        admin.setPassword(passwordEncoder.encode("123"));
+        admin.setPassword(passwordEncoder.encode("123456"));
         admin.setRole(Role.ADMIN);
-        admin.setPhone("123");
+        admin.setPhone("12345622222");
         userRepository.save(admin);
 
         userRepository.findAll()

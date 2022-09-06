@@ -48,4 +48,19 @@ public class PublicationService {
             return maybeManuscripts.orElse(Set.of());
         }
     }
+
+    /**
+     * 根据期刊 id 分页返回已通过审核的稿件
+     */
+    public List<Manuscript> listApprovedManuscripts(Long publicationId, Integer page, Integer limit) {
+        if (page != null && limit != null) {
+            return manuscriptRepository.findApprovedByPublicationId(publicationId, PageRequest.of(page - 1, limit))
+                    .toList();
+        } else {
+            return publicationRepository.findById(publicationId)
+                    .map(Publication::getManuscripts)
+                    .map(List::copyOf)
+                    .orElse(List.of());
+        }
+    }
 }

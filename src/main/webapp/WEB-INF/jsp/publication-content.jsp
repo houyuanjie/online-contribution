@@ -59,7 +59,7 @@
         // 开始渲染表格
         table.render({
             elem: '#manuList', // 选择 table 标签的 id
-            url: '<c:url value="/publication/content/id/${publication.id}/manuscript/list"/>', // 后端接口
+            url: '<c:url value="/publication/content/id/${publication.id}/manuscript/list/approved"/>', // 后端接口
             method: 'get', // http 请求方法
             cellMinWidth: 80, // 列最小宽度
             text: "加载数据出错", // 数据错误时提示
