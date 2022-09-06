@@ -43,7 +43,7 @@ public class Publication extends BaseEntity {
     /**
      * 简介
      */
-    @Column
+    @Column(length = 500)
     private String info;
 
     /**

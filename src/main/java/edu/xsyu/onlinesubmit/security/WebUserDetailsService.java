@@ -19,7 +19,7 @@ public class WebUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var maybeUser = userRepository.findUserByUsername(username);
+        var maybeUser = userRepository.findOneByUsername(username);
         if (maybeUser.isPresent()) {
             return new WebUserDetails(maybeUser.get());
         } else {

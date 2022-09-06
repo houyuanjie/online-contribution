@@ -47,6 +47,7 @@
 </body>
 
 <script type="text/html" id="manuBar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看信息</a>
     <a class="layui-btn layui-btn-xs" lay-event="download">下载文章</a>
 </script>
 
@@ -69,16 +70,30 @@
                 {field: 'title', title: '文章题目', sort: true, fixed: 'left'},
                 {field: 'author', title: '作者名称'},
                 {field: 'organization', title: '单位', sort: true},
-                {field: 'publication', title: '所属刊物'},
                 {fixed: 'right', title: '操作', toolbar: '#manuBar'}
             ]]
         });
 
-        // 点击 pubBar 的事件
+        // 点击 manuBar 的事件
         table.on('tool(manuTable)', function (obj) {
-            console.log(obj);
-            const publicationId = obj.data.id;
-            window.open('<c:url value="/publication/content/id/"/>' + publicationId);
+            if (obj.event === 'download') {
+                const fileId = obj.data.bytesFile.id;
+                window.open('<c:url value="/user/file/id/"/>' + fileId);
+            } else if (obj.event === 'view') {
+                layer.open({
+                    title: obj.data.title,
+                    type: 1,
+                    area: ['55%', '80%'],
+                    content: '<div style="min-height: 32px;line-height: 32px; font-size: 17px; padding: 75px;">'
+                        + '<p><b>论文标题：</b>' + obj.data.title + '</p>'
+                        + '<p><b>作者：</b>' + obj.data.author + '</p>'
+                        + '<p><b>单位：</b>' + obj.data.organization + '</p>'
+                        + '<p><b>关键字：</b>' + obj.data.keywords + '</p>'
+                        + '<p><b>摘要：</b>' + obj.data.summary + '</p> </div>'
+
+                });
+            }
+
         });
     });
 </script>

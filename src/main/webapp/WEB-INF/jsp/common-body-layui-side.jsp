@@ -7,7 +7,10 @@
         <ul class="layui-nav layui-nav-tree" lay-filter="test" style="text-align: center;">
             <li class="layui-nav-item"><a href="<c:url value="/"/>">首页</a></li>
             <li class="layui-nav-item"><a href="<c:url value="/publication"/>">期刊</a></li>
-            <li class="layui-nav-item"><a href="javascript:void(0);">投稿</a></li>
+            <li class="layui-nav-item"><a href="<c:url value="/user/contribution"/>">投稿</a></li>
+            <security:authorize access="hasAnyRole('EDITOR', 'ADMIN')">
+                <li class="layui-nav-item"><a href="<c:url value="/editor/examine"/>">审核</a></li>
+            </security:authorize>
         </ul>
     </div>
 </div>

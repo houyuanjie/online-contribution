@@ -2,23 +2,22 @@ package edu.xsyu.onlinesubmit.service;
 
 import edu.xsyu.onlinesubmit.entity.Manuscript;
 import edu.xsyu.onlinesubmit.entity.Publication;
+import edu.xsyu.onlinesubmit.repository.ManuscriptRepository;
 import edu.xsyu.onlinesubmit.repository.PublicationRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class PublicationService {
 
     private final PublicationRepository publicationRepository;
+    private final ManuscriptRepository manuscriptRepository;
 
-    public PublicationService(PublicationRepository publicationRepository) {
+    public PublicationService(PublicationRepository publicationRepository, ManuscriptRepository manuscriptRepository) {
         this.publicationRepository = publicationRepository;
+        this.manuscriptRepository = manuscriptRepository;
     }
 
     /**
@@ -32,20 +31,33 @@ public class PublicationService {
         }
     }
 
+    public List<Publication> list(String category, Integer page, Integer limit) {
+        if (category == null || "_ALL".equals(category)) {
+            return list(page, limit);
+        } else {
+            if (page != null && limit != null) {
+                return publicationRepository.findAllByCategory(category, PageRequest.of(page - 1, limit)).toList();
+            } else {
+                return publicationRepository.findAllByCategory(category);
+            }
+        }
+    }
+
     /**
      * 根据期刊 id 分页返回稿件
+     *
+     * @deprecated 功能上由 listApprovedManuscripts 代替
      */
-    public Collection<Manuscript> listManuscripts(Long publicationId, Integer page, Integer limit) {
-        var maybePublication = publicationRepository.findById(publicationId);
-        var maybeManuscripts = maybePublication.map(Publication::getManuscripts);
-
+    @Deprecated
+    public List<Manuscript> listManuscripts(Long publicationId, Integer page, Integer limit) {
         if (page != null && limit != null) {
-            return maybeManuscripts.map(Collection::stream)
-                    .map(stream -> stream.skip((long) (page - 1) * limit).limit(limit))
-                    .orElse(Stream.empty())
-                    .collect(Collectors.toUnmodifiableList());
+            return manuscriptRepository.findAllByPublicationId(publicationId, PageRequest.of(page - 1, limit))
+                    .toList();
         } else {
-            return maybeManuscripts.orElse(Set.of());
+            return publicationRepository.findById(publicationId)
+                    .map(Publication::getManuscripts)
+                    .map(List::copyOf)
+                    .orElse(List.of());
         }
     }
 

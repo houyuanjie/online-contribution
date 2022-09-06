@@ -33,7 +33,7 @@ public class HomeController {
                         "msg", "你好, 欢迎访问在线投稿网站",
                         "code", 200,
                         "data", Map.of(
-                                "content-path", "online-submit"
+                                "content-path", "online-contribution"
                         )
                 )
         );

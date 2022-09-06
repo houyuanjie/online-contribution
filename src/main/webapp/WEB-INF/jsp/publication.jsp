@@ -17,16 +17,36 @@
         <!-- 内容主体区域 -->
         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
             <ul class="layui-tab-title">
-                <li class="layui-this">所有期刊</li>
-                <li>教科文艺</li>
-                <li>经济管理</li>
-                <li>基础科学</li>
-                <li>社会科学</li>
-                <li>工程科技</li>
-                <li>信息科技</li>
-                <li>农业科技</li>
-                <li>医药卫生</li>
-                <li>>哲学政法</li>
+                <li class="${ "_ALL".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="_ALL"/></c:url>'>所有期刊</a>
+                </li>
+                <li class="${ "教科文艺".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="教科文艺"/></c:url>'>教科文艺</a>
+                </li>
+                <li class="${ "经济管理".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="经济管理"/></c:url>'>经济管理</a>
+                </li>
+                <li class="${ "基础科学".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="基础科学"/></c:url>'>基础科学</a>
+                </li>
+                <li class="${ "社会科学".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="社会科学"/></c:url>'>社会科学</a>
+                </li>
+                <li class="${ "工程科技".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="工程科技"/></c:url>'>工程科技</a>
+                </li>
+                <li class="${ "信息科技".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="信息科技"/></c:url>'>信息科技</a>
+                </li>
+                <li class="${ "农业科技".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="农业科技"/></c:url>'>农业科技</a>
+                </li>
+                <li class="${ "医药卫生".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="医药卫生"/></c:url>'>医药卫生</a>
+                </li>
+                <li class="${ "哲学政法".equals(category) ? "layui-this" : "" }"><a
+                        href='<c:url value="/publication"><c:param name="category" value="哲学政法"/></c:url>'>哲学政法</a>
+                </li>
             </ul>
 
             <div class="layui-tab-content">
@@ -54,6 +74,9 @@
             elem: '#pubList', // 选择 table 标签的 id
             url: '<c:url value="/publication/list"/>', // 后端接口
             method: 'get', // http 请求方法
+            where: {
+                'category': '${category}'
+            },
             cellMinWidth: 80, // 列最小宽度
             text: "加载数据出错", // 数据错误时提示
             limits: [10, 20, 50], // 分页限制
@@ -71,7 +94,6 @@
 
         // 点击 pubBar 的事件
         table.on('tool(pubTable)', function (obj) {
-            console.log(obj);
             const publicationId = obj.data.id;
             window.open('<c:url value="/publication/content/id/"/>' + publicationId);
         });

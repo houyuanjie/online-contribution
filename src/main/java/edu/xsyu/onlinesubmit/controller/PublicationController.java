@@ -2,6 +2,7 @@ package edu.xsyu.onlinesubmit.controller;
 
 import edu.xsyu.onlinesubmit.entity.BytesFile;
 import edu.xsyu.onlinesubmit.entity.Publication;
+import edu.xsyu.onlinesubmit.repository.ManuscriptRepository;
 import edu.xsyu.onlinesubmit.repository.PublicationRepository;
 import edu.xsyu.onlinesubmit.service.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,31 +12,34 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class PublicationController {
 
     private final PublicationService publicationService;
     private final PublicationRepository publicationRepository;
+    private final ManuscriptRepository manuscriptRepository;
 
     @Autowired
-    public PublicationController(PublicationService publicationService, PublicationRepository publicationRepository) {
+    public PublicationController(PublicationService publicationService, PublicationRepository publicationRepository, ManuscriptRepository manuscriptRepository) {
         this.publicationService = publicationService;
         this.publicationRepository = publicationRepository;
+        this.manuscriptRepository = manuscriptRepository;
     }
 
     /**
      * 返回页面
      */
     @GetMapping("/publication")
-    public String publication() {
+    public String publication(@RequestParam(value = "category", required = false) String category, ModelMap map) {
+        map.addAttribute("category", Objects.requireNonNullElse(category, "_ALL"));
+
         return "publication";
     }
 
@@ -76,11 +80,13 @@ public class PublicationController {
         return "publication-content";
     }
 
-    @GetMapping("/publication/content/id/{publicationId}/manuscript/list")
+    @GetMapping("/publication/content/id/{publicationId}/manuscript/list/approved")
     public ResponseEntity<Map<String, Object>> manuscriptByPublicationId(@PathVariable("publicationId") Long publicationId, @RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
         var map = new HashMap<String, Object>();
-        var manuscripts = publicationService.listManuscripts(publicationId, page, limit);
-        var count = manuscripts.size();
+
+        map.put("code", 0);
+
+        var count = manuscriptRepository.approvedCountByPublicationId(publicationId);
 
         if (count == 0) {
             map.put("code", 201);
@@ -88,15 +94,18 @@ public class PublicationController {
         } else {
             map.put("code", 0);
             map.put("count", count);
-            map.put("data", publicationService.listManuscripts(publicationId, page, limit));
+            map.put("data", publicationService.listApprovedManuscripts(publicationId, page, limit));
         }
 
         return ResponseEntity.ok(map);
     }
 
-
-    @GetMapping("/publication/list")
-    public ResponseEntity<Map<String, Object>> publicationList(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
+    @RequestMapping(path = "/publication/list", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<Map<String, Object>> publicationList(
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "limit", required = false) Integer limit
+    ) {
         var map = new HashMap<String, Object>();
 
         if (publicationRepository.count() == 0) {
@@ -104,8 +113,14 @@ public class PublicationController {
             map.put("msg", "无数据");
         } else {
             map.put("code", 0);
-            map.put("count", publicationRepository.count());
-            map.put("data", publicationService.list(page, limit));
+
+            if (category == null || "_ALL".equals(category)) {
+                map.put("count", publicationRepository.count());
+            } else {
+                map.put("count", publicationRepository.countByCategory(category));
+            }
+
+            map.put("data", publicationService.list(category, page, limit));
         }
 
         return ResponseEntity.ok(map);

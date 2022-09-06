@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OnlineSubmitApplication {
+public class OnlineContributionApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OnlineSubmitApplication.class, args);
+        SpringApplication.run(OnlineContributionApplication.class, args);
     }
 
 }
