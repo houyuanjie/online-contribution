@@ -29,8 +29,7 @@
             </a>
             <security:authorize access="isAuthenticated()">
                 <dl class="layui-nav-child">
-                        <%-- TODO: 已投稿页面 --%>
-                    <dd><a href="">已投稿</a></dd>
+                    <dd><a href="<c:url value="/user/myManuscripts"/>">我的稿件</a></dd>
                     <dd><a href="<c:url value="/logout"/>">退出</a></dd>
                 </dl>
             </security:authorize>

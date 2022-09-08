@@ -38,5 +38,9 @@ public interface ManuscriptRepository extends JpaRepository<Manuscript, Long> {
     @Query("SELECT manuscript FROM Manuscript manuscript WHERE manuscript.reviewStatus = edu.xsyu.onlinesubmit.enumeration.ManuscriptReviewStatus.NotReviewed")
     Page<Manuscript> findAllNotReviewed(Pageable pageable);
 
+    @Query("SELECT COUNT(manuscript) FROM Manuscript manuscript INNER JOIN User user ON manuscript.user = user WHERE user.id = :userId")
+    Integer countByUserId(@Param("userId") Long userId);
 
+    @Query("SELECT manuscript FROM Manuscript manuscript INNER JOIN User user ON manuscript.user = user WHERE user.id = :userId")
+    Page<Manuscript> findAllByUserId(@Param("userId") Long userId, Pageable pageable);
 }

@@ -30,7 +30,7 @@
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看信息</a>
     <a class="layui-btn layui-btn-xs" lay-event="download">下载稿件</a>
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="approved">审核通过</a>
-    <a class="layui-btn layui-btn-xs" lay-event="rejected">驳回审核</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="rejected">驳回审核</a>
 </script>
 
 <script>

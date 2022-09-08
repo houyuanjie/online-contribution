@@ -672,6 +672,7 @@ public class DbSetup {
         var editor = new User();
         editor.setUsername("editor");
         editor.setName("editor");
+        user.setEmail("");
         editor.setPassword(passwordEncoder.encode("123456"));
         editor.setRole(Role.EDITOR);
         editor.setPhone("12345622222");

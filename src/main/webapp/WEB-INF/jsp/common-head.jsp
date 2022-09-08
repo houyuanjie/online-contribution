@@ -7,5 +7,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width"/>
 <%-- 导入 layui --%>
-<link href="<c:url value="/layui/css/layui.css"/>" rel="stylesheet">
+<link href="<c:url value="/layui/css/layui.css"/>" rel="stylesheet" media="all">
 <script src="<c:url value="/layui/layui.js"/>"></script>

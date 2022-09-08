@@ -13,20 +13,8 @@
 
     <%@ include file="../common-body-layui-side.jsp" %>
 
-    <div class="layui-body">
-        <!-- 内容主体区域 -->
+    <div style="line-height: 58px;padding-left: 20%;padding-top: 200px; color: #393D49;font-size: 28px;font-weight: 300;">
         ${msg}
-
-        <%-- TODO: 添加样式 --%>
-
-        <c:if test="${success}">
-            <%-- 投稿成功时显示 --%>
-
-        </c:if>
-        <c:if test="${!success}">
-            <%-- 投稿失败时显示 --%>
-
-        </c:if>
     </div>
 </div>
 

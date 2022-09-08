@@ -6,7 +6,7 @@
 <head>
     <%@ include file="common-head.jsp" %>
     <link rel="stylesheet" href="layui/css/layui.css" media="all">
-    <title>修改</title>
+    <title>修改密码 - 在线投稿系统</title>
 </head>
 <body>
 <script src="/layui/layui.js"></script>
@@ -46,4 +46,31 @@
 </div>
 
 </body>
+
+<script>
+    layui.use(["element", "form", "layer"], function () {
+        var element = layui.element;
+        var form = layui.form;
+        var layer = layui.layer;
+
+        //表单验证功能
+        form.verify({
+            username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                    return '用户名不能有特殊字符';
+                }
+                if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                    return '用户名首尾不能出现下划线\'_\'';
+                }
+                if (/^\d+\d+\d$/.test(value)) {
+                    return '用户名不能全为数字';
+                }
+            }
+            , password: [
+                /^[\S]{6,12}$/
+                , '密码必须6到12位，且不能出现空格'
+            ]
+        });
+    })
+</script>
 </html>

@@ -19,14 +19,8 @@
 
         <%-- TODO: 添加样式 --%>
 
-        <c:if test="${success}">
-            <%-- 注册成功时显示 --%>
-
-        </c:if>
-        <c:if test="${!success}">
-            <%-- 注册失败时显示 --%>
-
-        </c:if>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -29,6 +29,43 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping("/modify-password")
+    public String modifyPassword() {
+        return "modify-password";
+    }
+
+    @PostMapping("/modifyPassword")
+    public String modifyPassword(
+            @RequestParam("username") String username,
+            @RequestParam("oldPassword") String oldPassword,
+            @RequestParam("newPassword") String newPassword,
+            ModelMap map
+    ) {
+        var maybeUser = userRepository.findOneByUsername(username);
+        if (maybeUser.isPresent()) {
+            var user = maybeUser.get();
+            if (passwordEncoder.matches(oldPassword, user.getPassword())) {
+                if (oldPassword.equals(newPassword)) {
+                    map.addAttribute("title", "失败");
+                    map.addAttribute("success", false);
+                    map.addAttribute("msg", "未更改密码");
+                } else {
+                    user.setPassword(passwordEncoder.encode(newPassword));
+                    userRepository.save(user);
+                    map.addAttribute("title", "成功");
+                    map.addAttribute("success", true);
+                    map.addAttribute("msg", "修改密码成功");
+                }
+            } else {
+                map.addAttribute("title", "失败");
+                map.addAttribute("success", false);
+                map.addAttribute("msg", "旧密码不正确");
+            }
+        }
+
+        return "modify-password-result";
+    }
+
     @PostMapping("/register")
     public String register(
             @ModelAttribute RegisterForm form,

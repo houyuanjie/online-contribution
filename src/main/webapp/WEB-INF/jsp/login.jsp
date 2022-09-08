@@ -5,7 +5,6 @@
 <html>
 <head>
     <%@ include file="common-head.jsp" %>
-    <link rel="stylesheet" href="layui/css/layui.css" media="all">
     <title>登录</title>
 </head>
 <body>
@@ -67,7 +66,8 @@
 
                                     <div class="layui-form-item" style="display:block;margin:0 280px 0 280px;">
                                         <button type="submit" class="layui-btn" lay-submit>登录</button>
-                                        <span style="margin-left: 20px"><a href="#">忘记密码</a></span>
+                                        <span style="margin-left: 20px"><a
+                                                href="<c:url value="/modify-password"/>">修改密码</a></span>
                                     </div>
                                 </form>
                             </div>
@@ -78,6 +78,25 @@
                                 <form action="<c:url value="/register"/>" class="layui-form layui-form-pane"
                                       method="post">
                                     <form class="layui-form">
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">用 户 名：</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="username" required
+                                                       lay-verify="required|username" class="layui-input"
+                                                       placeholder="请输入用户名"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">密 码：</label>
+                                            <div class="layui-input-inline">
+                                                <input type="password" name="password" lay-verify="required|password"
+                                                       class="layui-input" placeholder="请输入密码"/>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+                                        </div>
+
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">姓 名：</label>
                                             <div class="layui-input-block">
@@ -95,13 +114,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="layui-inline">
+                                        <div class="layui-form-item">
                                             <label class="layui-form-label">年 龄：</label>
                                             <div class="layui-input-inline">
                                                 <input name="age" type="number" min="0" class="layui-input" max="200"
                                                        name="age"/>
                                             </div>
-
                                         </div>
 
                                         <div class="layui-form-item">
@@ -148,7 +166,6 @@
                                             </div>
                                         </div>
 
-
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">通讯地址：</label>
                                             <div class="layui-input-block">
@@ -164,22 +181,7 @@
                                                        class="layui-input"/>
                                             </div>
                                         </div>
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">用 户 名：</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="username" required
-                                                       lay-verify="required|username" class="layui-input"
-                                                       placeholder="请输入用户名"/>
-                                            </div>
-                                        </div>
-                                        <div class="layui-form-item">
-                                            <label class="layui-form-label">密 码：</label>
-                                            <div class="layui-input-inline">
-                                                <input type="password" name="password" lay-verify="required|password"
-                                                       class="layui-input" placeholder="请输入密码"/>
-                                            </div>
-                                            <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
-                                        </div>
+
                                         <div class="layui-form-item" style="display:block;margin:0 320px 0 320px;">
                                             <button class="layui-btn" type="submit" lay-submit>注册</button>
                                         </div>
