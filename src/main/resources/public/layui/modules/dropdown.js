@@ -107,13 +107,13 @@ layui.define(['jquery', 'laytpl', 'lay'], function (exports) {
 
         //若重复执行 render，则视为 reload 处理
         if (!rerender && elem[0] && elem.data(MOD_INDEX)) {
-            ;
+
             var newThat = thisModule.getThis(elem.data(MOD_INDEX));
             if (!newThat) return;
 
             return newThat.reload(options);
         }
-        ;
+
 
         //初始化 id 参数
         options.id = ('id' in options) ? options.id : that.index;
@@ -397,7 +397,7 @@ layui.define(['jquery', 'laytpl', 'lay'], function (exports) {
     };
 
     //全局事件
-    ;!function () {
+    !function () {
         var _WIN = $(window)
             , _DOC = $(document);
 
@@ -477,7 +477,7 @@ layui.define(['jquery', 'laytpl', 'lay'], function (exports) {
             if (('isAllowSpread' in options) ? options.isAllowSpread : true) {
                 thisModule.spread(elemGroup);
             }
-            ;
+
         });
 
         //判断子级菜单是否超出屏幕
@@ -503,7 +503,7 @@ layui.define(['jquery', 'laytpl', 'lay'], function (exports) {
             if (rect.bottom > _WIN.height()) {
                 elemPanel.eq(0).css('margin-top', -(rect.bottom - _WIN.height() + 5));
             }
-            ;
+
         }).on('mouseleave', ELEM_LI_PAR, function (e) {
             var othis = $(this)
                 , elemPanel = othis.children('.' + STR_MENU_PANEL);

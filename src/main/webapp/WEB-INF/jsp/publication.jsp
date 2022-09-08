@@ -15,6 +15,14 @@
 
     <div class="layui-body" style="padding: 30px; min-width: 1000px;">
         <!-- 内容主体区域 -->
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <input type="text" id="search" class="layui-input" placeholder="搜索刊物..."/>
+            </div>
+            <button type="button" id="searchBtn" class="layui-btn layui-btn-sm">
+                <i class="layui-icon">&#xe615;</i>
+            </button>
+        </div>
         <div class="layui-tab layui-tab-brief">
             <ul class="layui-tab-title">
                 <li class="${ "_ALL".equals(category) ? "layui-this" : "" }"><a
@@ -65,7 +73,8 @@
 
 <script>
     // 使用 layui table 插件
-    layui.use(['table'], function () {
+    layui.use(['table', 'jquery'], function () {
+        const $ = layui.jquery;
         // 实例化一个表格对象
         const table = layui.table;
 
@@ -96,6 +105,21 @@
         table.on('tool(pubTable)', function (obj) {
             const publicationId = obj.data.id;
             window.open('<c:url value="/publication/content/id/"/>' + publicationId);
+        });
+
+        // 搜索事件
+        $('#searchBtn').click(function () {
+            const searchStr = $('#search').val();
+
+            table.reloadData('pubList', {
+                where: {
+                    'category': '${category}',
+                    'search': searchStr,
+                },
+                page: {
+                    curr: 1
+                },
+            });
         });
     });
 </script>

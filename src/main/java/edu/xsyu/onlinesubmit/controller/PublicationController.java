@@ -104,23 +104,33 @@ public class PublicationController {
     public ResponseEntity<Map<String, Object>> publicationList(
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "limit", required = false) Integer limit
+            @RequestParam(value = "limit", required = false) Integer limit,
+            @RequestParam(value = "search", required = false) String search
     ) {
         var map = new HashMap<String, Object>();
 
-        if (publicationRepository.count() == 0) {
+        long count;
+        var countByCategory = category != null && !"_ALL".equals(category);
+        var countBySearch = search != null && !search.isBlank();
+
+        if (countByCategory && countBySearch) {
+            count = publicationRepository.countByCategoryAndSearch(category, search);
+        } else if (countByCategory) {
+            count = publicationRepository.countByCategory(category);
+        } else if (countBySearch) {
+            count = publicationRepository.countBySearch(search);
+        } else {
+            count = publicationRepository.count();
+        }
+
+        if (count == 0) {
             map.put("code", 201);
             map.put("msg", "无数据");
         } else {
             map.put("code", 0);
-
-            if (category == null || "_ALL".equals(category)) {
-                map.put("count", publicationRepository.count());
-            } else {
-                map.put("count", publicationRepository.countByCategory(category));
-            }
-
-            map.put("data", publicationService.list(category, page, limit));
+            map.put("count", count);
+            var publications = publicationService.list(category, page, limit, search);
+            map.put("data", publications);
         }
 
         return ResponseEntity.ok(map);

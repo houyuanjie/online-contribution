@@ -85,7 +85,8 @@
 
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">请上传文章</label>
-                    <input type="file" name="file" class="layui-btn" id="btnUpload" required/>
+                    <input type="file" accept=".doc, .docx, .pdf" name="file" class="layui-btn" id="btnUpload"
+                           required/>
                 </div>
 
                 <div class="layui-form-item">
@@ -103,7 +104,7 @@
 </body>
 
 <script type="text/javascript">
-    layui.use(['form', 'upload'], function () {
+    layui.use(['form'], function () {
         const $ = layui.$;
         const form = layui.form;
 
@@ -117,13 +118,13 @@
                 let html = '<option value="">请选择期刊</option>';
 
                 // 将选项的值和选项加入到选择
-                $.each(res.data, function (index, item) {
-                    html += '<option value="' + (item.name) + '">' + item.name + '</option>';
+                $.each(res.data, function (index, publication) {
+                    html += '<option value="' + publication.name + '">' + publication.name + '</option>';
                 });
 
                 $("#publication").html(html);
                 //重新渲染select标签中的内容
-                form.render($('#publication'));
+                form.render('select');
             });
         });
     });

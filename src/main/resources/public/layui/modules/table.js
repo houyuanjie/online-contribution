@@ -1055,7 +1055,7 @@ layui.define(['laytpl', 'laypage', 'form', 'util'], function (exports) {
                                     return numbers;
                                     break;
                             }
-                            ;
+
 
                             //解析工具列模板
                             if (item3.toolbar) {
@@ -1985,7 +1985,7 @@ layui.define(['laytpl', 'laypage', 'form', 'util'], function (exports) {
                 othis.find('.' + ELEM_EDIT)[0] || othis.append(input);
                 input.focus();
                 layui.stope(e);
-                return;
+
             }
         }).on('mouseenter', 'td', function () {
             gridExpand.call(this)
@@ -2278,7 +2278,7 @@ layui.define(['laytpl', 'laypage', 'form', 'util'], function (exports) {
             if (layui.type(item) === 'array') {
                 return;
             }
-            ;
+
             arr.push(table.clearCacheKey(item));
         });
         return arr;

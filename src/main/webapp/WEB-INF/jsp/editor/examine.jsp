@@ -29,7 +29,6 @@
 <script type="text/html" id="examBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看信息</a>
     <a class="layui-btn layui-btn-xs" lay-event="download">下载稿件</a>
-    <%-- FIXME: 新提交一个稿件一页多出刚好一个时, 点通过, 表格显示 ERROR --%>
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="approved">审核通过</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="rejected">驳回审核</a>
 </script>

@@ -188,7 +188,7 @@ layui.define('jquery', function (exports) {
         if (options.elem.find('.' + ELEM_ARROW)[0]) {
             options.elem.find('.' + ELEM_ARROW).remove();
         }
-        ;
+
         options.elem.append(tplArrow);
 
         //事件
@@ -222,7 +222,7 @@ layui.define('jquery', function (exports) {
         if (options.elem.find('.' + ELEM_IND)[0]) {
             options.elem.find('.' + ELEM_IND).remove();
         }
-        ;
+
         options.elem.append(tplInd);
 
         if (options.anim === 'updown') {
@@ -267,7 +267,7 @@ layui.define('jquery', function (exports) {
                 elemItem.eq(options.index).addClass(ELEM_LEFT);
             }, 50);
         }
-        ;
+
 
         //移除过度类
         setTimeout(function () {

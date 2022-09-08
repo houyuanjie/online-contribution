@@ -91,13 +91,13 @@
          */
         $("#addPublication").click(function () {
             layer.open({
-                title: "添加用户",
+                title: "添加期刊",
                 type: 1,
                 area: ['66%', '90%'],
                 content:
                     `
-                <div style="padding: 50px;">
-                    <form class="layui-form" lay-filter="addPubForm">
+                    <div style="padding: 50px;">
+                        <form class="layui-form" lay-filter="addPubForm">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">刊物名称: </label>
                                 <div class="layui-input-inline">
@@ -149,8 +149,8 @@
                                 </div>
                             </div>
                         </form>
-                </div>
-                `,
+                    </div>
+                    `,
                 success: function (index) {
                     form.render();
                     //表单验证功能

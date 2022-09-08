@@ -70,7 +70,7 @@
                 if (++timeout > 10 * 1000 / delay) {
                     return window.console && console.error(app + '.css: Invalid');
                 }
-                ;
+
 
                 //css 加载就绪
                 if (parseInt(ready.getStyle(getLinkElem, 'width')) === 1989) {
@@ -398,7 +398,7 @@
                 $(this).removeClass(animClass);
             });
         }
-        ;
+
 
         //记录关闭动画
         if (config.isOutAnim) {
@@ -444,7 +444,7 @@
                 }
                 break;
         }
-        ;
+
 
         return that;
     };
@@ -529,7 +529,7 @@
             } else {
                 goal.tipLeft = goal.left;
             }
-            ;
+
         };
 
         //辨别tips的方位
@@ -847,12 +847,12 @@
             if (parseFloat(options.width) <= 260) {
                 options.width = 260;
             }
-            ;
+
 
             if (parseFloat(options.height) - titHeight - btnHeight <= 64) {
                 options.height = 64 + titHeight + btnHeight;
             }
-            ;
+
         }
 
         layero.css(options);
@@ -1023,7 +1023,7 @@
             callback = type;
             type = null;
         }
-        ;
+
         var domsElem = $('.' + doms[0]);
         $.each(domsElem, function (_index) {
             var othis = $(this);
@@ -1213,7 +1213,7 @@
                 if (errorMsg) {
                     return
                 }
-                ;
+
             }
             dict.tabimg(key)
         };
@@ -1282,7 +1282,7 @@
                 img.onerror = null;
                 error(e);
             };
-        };
+        }
 
         dict.loadi = layer.load(1, {
             shade: 'shade' in options ? false : 0.9,

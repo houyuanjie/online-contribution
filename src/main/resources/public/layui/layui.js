@@ -150,7 +150,7 @@
                     if (++timeout > config.timeout * 1000 / 4) {
                         return error(item + ' is not a valid module', 'error');
                     }
-                    ;
+
                     config.status[item] ? onCallback() : setTimeout(poll, 4);
                 }());
             }
@@ -289,7 +289,7 @@
             if (++timeout > config.timeout * 1000 / delay) {
                 return error(href + ' timeout');
             }
-            ;
+
 
             //css 加载就绪
             if (parseInt(that.getStyle(getLinkElem, 'width')) === 1989) {
@@ -676,7 +676,7 @@
                     return v1 - v2;
                 }
             }
-            ;
+
 
             /**
              * 字典序排序

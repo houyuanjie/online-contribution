@@ -231,7 +231,7 @@ layui.define(['layer', 'util'], function (exports) {
                                         if (selectedIndex === 0 && initValue === input.attr('placeholder')) {
                                             initValue = '';
                                         }
-                                        ;
+
 
                                         // 如果有选中值，则将输入框纠正为该值。否则清空输入框
                                         input.val(initValue || '');
@@ -417,7 +417,7 @@ layui.define(['layer', 'util'], function (exports) {
                                 if (selectedIndex === 0 && initValue === input.attr('placeholder')) {
                                     initValue = '';
                                 }
-                                ;
+
 
                                 setTimeout(function () {
                                     notOption(input.val(), function (none) {

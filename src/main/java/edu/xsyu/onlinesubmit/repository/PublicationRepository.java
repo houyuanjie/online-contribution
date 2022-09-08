@@ -26,4 +26,22 @@ public interface PublicationRepository extends JpaRepository<Publication, Long> 
     @Query("SELECT COUNT(publication) FROM Publication publication WHERE publication.category = :category")
     Integer countByCategory(@Param("category") String category);
 
+    @Query("SELECT COUNT(publication) FROM Publication publication WHERE publication.name LIKE %:search%")
+    Integer countBySearch(@Param("search") String search);
+
+    @Query("SELECT COUNT(publication) FROM Publication publication WHERE publication.category = :category AND publication.name LIKE %:search%")
+    Integer countByCategoryAndSearch(@Param("category") String category, @Param("search") String search);
+
+    @Query("SELECT publication FROM Publication publication WHERE publication.category = :category AND publication.name LIKE %:search%")
+    List<Publication> findAllByCategoryAndSearch(@Param("category") String category, @Param("search") String search);
+
+    @Query("SELECT publication FROM Publication publication WHERE publication.category = :category AND publication.name LIKE %:search%")
+    Page<Publication> findAllByCategoryAndSearch(@Param("category") String category, @Param("search") String search, Pageable pageable);
+
+    @Query("SELECT publication FROM Publication publication WHERE publication.name LIKE %:search%")
+    List<Publication> findAllBySearch(@Param("search") String search);
+
+    @Query("SELECT publication FROM Publication publication WHERE publication.name LIKE %:search%")
+    Page<Publication> findAllBySearch(@Param("search") String search, Pageable pageable);
+
 }

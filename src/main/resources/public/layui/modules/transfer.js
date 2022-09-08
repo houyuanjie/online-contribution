@@ -319,7 +319,7 @@ layui.define(['laytpl', 'form'], function (exports) {
                 if (item == item2.value) {
                     selectedData.push(item2);
                 }
-                ;
+
             });
         });
         return selectedData;

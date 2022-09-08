@@ -107,7 +107,7 @@ layui.define('jquery', function (exports) {
 
             var scale = Math.floor((options.value - options.min) / (options.max - options.min) * 100) + '%';
         }
-        ;
+
 
 
         //如果禁用，颜色为统一的灰色
@@ -131,7 +131,7 @@ layui.define('jquery', function (exports) {
         } else {
             that.elemTemp.find('.' + SLIDER_WRAP).data('value', options.value);
         }
-        ;
+
 
         //插入替代元素
         othis.html(that.elemTemp);
@@ -140,7 +140,7 @@ layui.define('jquery', function (exports) {
         if (options.type === 'vertical') {
             that.elemTemp.height(options.height + 'px');
         }
-        ;
+
 
         //显示间断点
         if (options.showstep) {
@@ -151,10 +151,10 @@ layui.define('jquery', function (exports) {
                     item += '<div class="layui-slider-step" style="' + (options.type === 'vertical' ? 'bottom' : 'left') + ':' + step + '%"></div>'
                 }
             }
-            ;
+
             that.elemTemp.append(item);
         }
-        ;
+
 
         //插入输入框
         if (options.input && !options.range) {
@@ -171,7 +171,7 @@ layui.define('jquery', function (exports) {
                 that.elemTemp.css("margin-right", elemInput.outerWidth() + 15);
             }
         }
-        ;
+
 
         //给未禁止的滑块滑动事件
         if (!options.disabled) {
@@ -180,7 +180,7 @@ layui.define('jquery', function (exports) {
             that.elemTemp.addClass(DISABLED);
             that.elemTemp.find('.' + SLIDER_WRAP_BTN).addClass(DISABLED);
         }
-        ;
+
 
         //划过滑块显示数值
         var timer;
@@ -208,7 +208,7 @@ layui.define('jquery', function (exports) {
                         "display": "inline-block"
                     });
                 }
-                ;
+
             }, 300);
         }).on('mouseout', function () {
             clearTimeout(timer);
@@ -234,7 +234,7 @@ layui.define('jquery', function (exports) {
                 } else {
                     offsetValue = Math.round(offsetValue) * step
                 }
-                ;
+
                 offsetValue = offsetValue > 100 ? 100 : offsetValue;
                 sliderWrap.eq(index).css((options.type === 'vertical' ? 'bottom' : 'left'), offsetValue + '%');
                 var firLeft = valueTo(sliderWrap[0].offsetLeft)
@@ -246,7 +246,7 @@ layui.define('jquery', function (exports) {
                 } else {
                     sliderAct.find('.' + SLIDER_TIPS).css("left", offsetValue + '%');
                 }
-                ;
+
                 firLeft = firLeft > 100 ? 100 : firLeft;
                 secLeft = secLeft > 100 ? 100 : secLeft;
                 var minLeft = Math.min(firLeft, secLeft)
@@ -256,7 +256,7 @@ layui.define('jquery', function (exports) {
                 } else {
                     sliderAct.find('.' + SLIDER_BAR).css({"width": wrapWidth + '%', "left": minLeft + '%'});
                 }
-                ;
+
                 var selfValue = options.min + Math.round((options.max - options.min) * offsetValue / 100);
                 inputValue = selfValue;
                 sliderTxt.children('.' + SLIDER_INPUT_TXT).children('input').val(inputValue);
@@ -281,7 +281,7 @@ layui.define('jquery', function (exports) {
                 if (value == sliderWidth()) {
                     left = Math.ceil(oldLeft) * step;
                 }
-                ;
+
                 return left;
             }
 
@@ -312,7 +312,7 @@ layui.define('jquery', function (exports) {
                     oldleft = sliderWidth() - othis.parent()[0].offsetTop - sliderWrap.height()
                     oldx = e.clientY;
                 }
-                ;
+
 
                 var move = function (e) {
                     e = e || window.event;
@@ -357,7 +357,7 @@ layui.define('jquery', function (exports) {
                 } else {
                     index = 0;
                 }
-                ;
+
                 change(reaLeft, index);
                 e.preventDefault();
             }
@@ -376,7 +376,7 @@ layui.define('jquery', function (exports) {
                         ? options.max
                         : Number(inputValue) + options.step;
                 }
-                ;
+
                 var inputScale = (inputValue - options.min) / (options.max - options.min) * 100 / step;
                 change(inputScale, 0);
             });

@@ -43,6 +43,34 @@ public class PublicationService {
         }
     }
 
+    public List<Publication> list(Integer page, Integer limit, String search) {
+        if (search == null || search.isBlank()) {
+            return list(page, limit);
+        } else {
+            if (page != null && limit != null) {
+                return publicationRepository.findAllBySearch(search, PageRequest.of(page - 1, limit)).toList();
+            } else {
+                return publicationRepository.findAllBySearch(search);
+            }
+        }
+    }
+
+    public List<Publication> list(String category, Integer page, Integer limit, String search) {
+        if (search == null || search.isBlank()) {
+            return list(category, page, limit);
+        } else {
+            if (category == null || "_ALL".equals(category)) {
+                return list(page, limit, search);
+            } else {
+                if (page != null && limit != null) {
+                    return publicationRepository.findAllByCategoryAndSearch(category, search, PageRequest.of(page - 1, limit)).toList();
+                } else {
+                    return publicationRepository.findAllByCategoryAndSearch(category, search);
+                }
+            }
+        }
+    }
+
     /**
      * 根据期刊 id 分页返回稿件
      *

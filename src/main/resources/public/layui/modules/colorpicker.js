@@ -69,16 +69,16 @@ layui.define(['jquery', 'lay'], function (exports) {
             } else {
                 hsb.h = -1;
             }
-            ;
+
             if (max == min) {
                 hsb.h = 0;
             }
-            ;
+
             hsb.h *= 60;
             if (hsb.h < 0) {
                 hsb.h += 360;
             }
-            ;
+
             hsb.s *= 100 / 255;
             hsb.b *= 100 / 255;
             return hsb;
@@ -91,7 +91,7 @@ layui.define(['jquery', 'lay'], function (exports) {
                 var num = hex.split("");
                 hex = num[0] + num[0] + num[1] + num[1] + num[2] + num[2]
             }
-            ;
+
             hex = parseInt(hex, 16);
             var rgb = {r: hex >> 16, g: (hex & 0x00FF00) >> 8, b: (hex & 0x0000FF)};
             return RGBToHSB(rgb);
@@ -373,7 +373,7 @@ layui.define(['jquery', 'lay'], function (exports) {
             if (type === 'torgb') {
                 elemPickerInput.find('input').val(bgcolor);
             }
-            ;
+
 
             //如果格式要求为rgba
             if (type === 'rgba') {
@@ -388,12 +388,12 @@ layui.define(['jquery', 'lay'], function (exports) {
                     var left = bgcolor.slice(bgcolor.lastIndexOf(",") + 1, bgcolor.length - 1) * 280;
                     that.elemPicker.find('.' + PICKER_ALPHA_SLIDER).css("left", left);
                 }
-                ;
+
 
                 //设置span背景色
                 that.elemPicker.find('.' + PICKER_ALPHA_BG)[0].style.background = 'linear-gradient(to right, rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', 0), rgb(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + '))';
             }
-            ;
+
 
         } else {
             //如果没有背景颜色则默认到最初始的状态
@@ -436,7 +436,7 @@ layui.define(['jquery', 'lay'], function (exports) {
                 if (type === 'torgb') {
                     that.elemPicker.find('.' + PICKER_INPUT).find('input').val('rgb(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ')');
                 }
-                ;
+
 
                 if (type === 'rgba') {
                     var left = 0;
@@ -446,7 +446,7 @@ layui.define(['jquery', 'lay'], function (exports) {
                     span[0].style.background = 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', ' + a + ')';
                     alphacolor[0].style.background = 'linear-gradient(to right, rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', 0), rgb(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + '))'
                 }
-                ;
+
 
                 //回调更改的颜色
                 options.change && options.change(that.elemPicker.find('.' + PICKER_INPUT).find('input').val());
@@ -644,13 +644,13 @@ layui.define(['jquery', 'lay'], function (exports) {
                         elemColorBoxSpan[0].style.background = value;
                         colorValue = value;
                     }
-                    ;
+
                 } else {
                     hsb = HEXToHSB(value);
                     elemColorBoxSpan[0].style.background = (colorValue = '#' + HSBToHEX(hsb));
                     that.elemColorBox.find('.' + PICKER_TRIG_I).removeClass(ICON_PICKER_CLOSE).addClass(ICON_PICKER_DOWN);
                 }
-                ;
+
 
                 if (change === 'change') {
                     that.select(hsb.h, hsb.s, hsb.b, change);
@@ -692,7 +692,7 @@ layui.define(['jquery', 'lay'], function (exports) {
                 that.val();
                 that.side();
             }
-            ;
+
         });
 
         if (!options.elem[0] || that.elemColorBox[0].eventHandler) return;
