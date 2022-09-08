@@ -15,7 +15,7 @@
 
     <div class="layui-body" style="padding: 30px; min-width: 1000px;">
         <!-- 内容主体区域 -->
-        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <div class="layui-tab layui-tab-brief">
             <ul class="layui-tab-title">
                 <li class="${ "_ALL".equals(category) ? "layui-this" : "" }"><a
                         href='<c:url value="/publication"><c:param name="category" value="_ALL"/></c:url>'>所有期刊</a>

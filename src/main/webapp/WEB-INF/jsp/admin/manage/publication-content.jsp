@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%@ include file="common-head.jsp" %>
+    <%@ include file="../../common-head.jsp" %>
     <title>详细内容 - 期刊</title>
 </head>
 <body>
 
 <div class="layui-layout layui-layout-admin">
-    <%@ include file="common-body-layui-header.jsp" %>
+    <%@ include file="../../common-body-layui-header.jsp" %>
 
-    <%@ include file="common-body-layui-side.jsp" %>
+    <%@ include file="../../common-body-layui-side.jsp" %>
 
     <div class="layui-body" style="padding: 30px; min-width: 1100px;">
         <!-- 内容主体区域 -->
@@ -43,19 +43,22 @@
 
     </div>
 </div>
-<%@ include file="common-body-layui-script.jsp" %>
+<%@ include file="../../common-body-layui-script.jsp" %>
 </body>
 
 <script type="text/html" id="manuBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看信息</a>
     <a class="layui-btn layui-btn-xs" lay-event="download">下载文章</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除文章</a>
 </script>
 
 <script>
     // 使用 layui table 插件
-    layui.use(['table'], function () {
+    layui.use(['table', 'layer', 'jquery'], function () {
         // 实例化一个表格对象
         const table = layui.table;
+        const layer = layui.layer;
+        const $ = layui.jquery;
 
         // 开始渲染表格
         table.render({
@@ -92,8 +95,29 @@
                         + '<p><b>摘要：</b>' + obj.data.summary + '</p> </div>'
 
                 });
+            } else if (obj.event === 'delete') {
+                //弹出删除窗口,确认是否删除
+                layer.confirm("是否删除?", {icon: 3, title: "提示"}, function (index) {
+                    //调用AJAX删除后台数据--> 获取删除数据的ID
+                    const delUrl = '<c:url value="/user/manuscript/delete/"/>' + obj.data.id;
+
+                    $.ajax({
+                        url: delUrl,
+                        data: {},
+                        type: 'post',
+                        async: false,
+                        success: function (res) {
+                            layer.msg(res.msg);
+                            //关闭弹出层
+                            layer.close(index);
+                            //刷新表格
+                            table.reload("manuList");
+                        },
+                    });
+                });
             }
 
+            return false;
         });
     });
 </script>

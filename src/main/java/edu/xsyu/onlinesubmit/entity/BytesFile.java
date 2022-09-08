@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -50,6 +52,19 @@ public class BytesFile extends BaseEntity {
      */
     public static BytesFile from(MultipartFile multipartFile) throws IOException {
         return new BytesFile(multipartFile.getOriginalFilename(), multipartFile.getSize(), multipartFile.getContentType(), multipartFile.getBytes());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BytesFile bytesFile = (BytesFile) o;
+        return fileName.equals(bytesFile.fileName) && Objects.equals(size, bytesFile.size) && Objects.equals(contentType, bytesFile.contentType) && Arrays.equals(bytes, bytesFile.bytes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fileName, size, contentType);
     }
 
 }

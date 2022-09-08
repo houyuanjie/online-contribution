@@ -13,6 +13,10 @@
             <security:authorize access="hasAnyRole('EDITOR')">
                 <li class="layui-nav-item"><a href="<c:url value="/editor/examine"/>">审核</a></li>
             </security:authorize>
+            <security:authorize access="hasAnyRole('ADMIN')">
+                <li class="layui-nav-item"><a href="<c:url value="/admin/manage/user"/>">用户管理</a></li>
+                <li class="layui-nav-item"><a href="<c:url value="/admin/manage/publication"/>">期刊管理</a></li>
+            </security:authorize>
         </ul>
     </div>
 </div>

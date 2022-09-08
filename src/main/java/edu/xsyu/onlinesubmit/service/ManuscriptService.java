@@ -1,6 +1,7 @@
 package edu.xsyu.onlinesubmit.service;
 
 import edu.xsyu.onlinesubmit.entity.Manuscript;
+import edu.xsyu.onlinesubmit.entity.User;
 import edu.xsyu.onlinesubmit.repository.ManuscriptRepository;
 import edu.xsyu.onlinesubmit.repository.UserRepository;
 import org.springframework.data.domain.PageRequest;

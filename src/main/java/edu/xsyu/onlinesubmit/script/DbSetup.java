@@ -659,6 +659,14 @@ public class DbSetup {
         user.setPassword(passwordEncoder.encode("123456"));
         user.setRole(Role.USER);
         user.setPhone("12345611111");
+        user.setEmail("");
+        user.setAge(20);
+        user.setGraduatedSchool("西安石油大学");
+        user.setEducationalBackground("本科");
+        user.setContactAddress("");
+        user.setGender("男");
+        user.setZipCode("414000");
+        user.setEmail("111@11.com");
         userRepository.save(user);
 
         var admin = new User();
@@ -667,6 +675,14 @@ public class DbSetup {
         admin.setPassword(passwordEncoder.encode("123456"));
         admin.setRole(Role.ADMIN);
         admin.setPhone("12345622222");
+        user.setEmail("");
+        admin.setGender("女");
+        user.setEducationalBackground("博士");
+        user.setGraduatedSchool("西安石油大学");
+        user.setContactAddress("");
+        user.setAge(23);
+        user.setZipCode("414000");
+        user.setEmail("222@11.com");
         userRepository.save(admin);
 
         var editor = new User();
@@ -676,6 +692,11 @@ public class DbSetup {
         editor.setPassword(passwordEncoder.encode("123456"));
         editor.setRole(Role.EDITOR);
         editor.setPhone("12345622222");
+        user.setGraduatedSchool("西安石油大学");
+        user.setContactAddress("");
+        user.setZipCode("710300");
+        editor.setGender("女");
+        user.setEmail("333@11.com");
         userRepository.save(editor);
     }
 

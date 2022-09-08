@@ -6,5 +6,18 @@ public enum Role {
     /* 编辑 */
     EDITOR,
     /* 管理员 */
-    ADMIN
+    ADMIN;
+
+    public static Role from(String role) {
+        switch (role) {
+            case "USER":
+                return USER;
+            case "EDITOR":
+                return EDITOR;
+            case "ADMIN":
+                return ADMIN;
+            default:
+                return null;
+        }
+    }
 }

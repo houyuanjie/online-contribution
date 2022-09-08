@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@ include file="../common-head.jsp" %>
-    <title>审核 - 在线投稿网站</title>
+    <title>我的稿件 - 在线投稿系统</title>
 </head>
 <body>
 
@@ -17,7 +17,7 @@
         <!-- 内容主体区域 -->
         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="padding: 50px;">
             <div class="layui-tab-content">
-                <table class="layui-hide" id="manuToExamList" lay-filter="manuToExamTable"></table>
+                <table class="layui-hide" id="myManuList" lay-filter="myManuTable"></table>
             </div>
         </div>
     </div>
@@ -26,12 +26,10 @@
 </div>
 </body>
 
-<script type="text/html" id="examBar">
+<script type="text/html" id="myManuBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看信息</a>
     <a class="layui-btn layui-btn-xs" lay-event="download">下载稿件</a>
-    <%-- FIXME: 新提交一个稿件一页多出刚好一个时, 点通过, 表格显示 ERROR --%>
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="approved">审核通过</a>
-    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="rejected">驳回审核</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除稿件</a>
 </script>
 
 <script>
@@ -44,8 +42,8 @@
 
         // 开始渲染表格
         const tableOptions = {
-            elem: '#manuToExamList', // 选择 table 标签的 id
-            url: '<c:url value="/editor/examine/list"/>', // 后端接口
+            elem: '#myManuList', // 选择 table 标签的 id
+            url: '<c:url value="/user/myManuscripts/list"/>', // 后端接口
             method: 'get', // http 请求方法
             cellMinWidth: 80, // 列最小宽度
             text: "加载数据出错", // 数据错误时提示
@@ -56,14 +54,14 @@
                 {field: 'author', title: '作者', sort: true},
                 {field: 'organization', title: '单位', sort: true},
                 {field: 'reviewStatus', title: '稿件审核状态'},
-                {fixed: 'right', title: '操作', width: 313, toolbar: '#examBar'}
+                {fixed: 'right', title: '操作', width: 313, toolbar: '#myManuBar'}
             ]],
         };
 
         table.render(tableOptions);
 
-        // 点击 examBar 的事件
-        table.on('tool(manuToExamTable)', function (obj) {
+        // 点击 myManuBar 的事件
+        table.on('tool(myManuTable)', function (obj) {
             if (obj.event === 'download') {
                 const fileId = obj.data.bytesFile.id;
                 window.open('<c:url value="/user/file/id/"/>' + fileId);
@@ -82,21 +80,25 @@
                         + '<p><b>摘要：</b>' + obj.data.summary + '</p> </div>'
 
                 });
-            } else if (obj.event === 'approved') {
-                const url = '<c:url value="/editor/examine/manuscript/id/"/>' + obj.data.id;
-                $.post(url, {
-                    status: 'approved'
-                }, function (res) {
-                    layer.msg(res.msg);
-                    table.reloadData('manuToExamList', {});
-                });
-            } else if (obj.event === 'rejected') {
-                const url = '<c:url value="/editor/examine/manuscript/id/"/>' + obj.data.id;
-                $.post(url, {
-                    status: 'rejected'
-                }, function (res) {
-                    layer.msg(res.msg);
-                    table.reloadData('manuToExamList', {});
+            } else if (obj.event === 'delete') {
+                //弹出删除窗口,确认是否删除
+                layer.confirm("是否删除?", {icon: 3, title: "提示"}, function (index) {
+                    //调用AJAX删除后台数据--> 获取删除数据的ID
+                    const delUrl = '<c:url value="/user/manuscript/delete/"/>' + obj.data.id;
+
+                    $.ajax({
+                        url: delUrl,
+                        data: {},
+                        type: 'post',
+                        async: false,
+                        success: function (res) {
+                            layer.msg(res.msg);
+                            //关闭弹出层
+                            layer.close(index);
+                            //刷新表格
+                            table.reload("myManuList");
+                        },
+                    });
                 });
             }
 

@@ -195,8 +195,6 @@
         </div>
     </div>
 
-
-    <script src="/layui/layui.js"></script>
     <script>
         layui.use(["element", "form", "layer"], function () {
             var element = layui.element;

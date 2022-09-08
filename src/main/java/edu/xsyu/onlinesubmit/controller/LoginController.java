@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
@@ -92,11 +93,11 @@ public class LoginController {
                 user.setGender(form.getGender());
                 user.setAge(form.getAge());
                 user.setEducationalBackground(form.getEducationalBackground());
-                user.setGraduatedSchool(form.getGraduatedSchool());
-                user.setEmail(form.getEmail());
+                user.setGraduatedSchool(form.getGraduatedSchool() != null ? form.getGraduatedSchool() : "");
+                user.setEmail(form.getEmail() != null ? form.getEmail() : "");
                 user.setPhone(form.getPhone());
-                user.setContactAddress(form.getContactAddress());
-                user.setZipCode(form.getZipCode());
+                user.setContactAddress(form.getContactAddress() != null ? form.getContactAddress() : "");
+                user.setZipCode(form.getZipCode() != null ? form.getZipCode() : "");
                 userRepository.save(user);
                 map.addAttribute("title", "注册成功");
                 map.addAttribute("success", true);

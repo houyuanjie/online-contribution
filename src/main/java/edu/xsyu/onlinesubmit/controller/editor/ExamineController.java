@@ -39,7 +39,8 @@ public class ExamineController {
     @GetMapping("/examine/list")
     public ResponseEntity<Map<String, Object>> examineList(
             @RequestParam("page") Integer page,
-            @RequestParam("limit") Integer limit) {
+            @RequestParam("limit") Integer limit
+    ) {
         var map = new HashMap<String, Object>();
 
         var count = manuscriptRepository.NotReviewedCount();
