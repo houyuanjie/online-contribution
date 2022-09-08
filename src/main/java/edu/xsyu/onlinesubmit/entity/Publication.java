@@ -58,6 +58,7 @@ public class Publication extends BaseEntity {
      * 国际标准期刊编号
      */
     @Column
+    @NotBlank
     private String issn;
 
     /**

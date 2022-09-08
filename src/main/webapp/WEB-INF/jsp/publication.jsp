@@ -83,10 +83,10 @@
             page: true, // 开启分页
             cols: [[ // 表头
                 {field: 'issn', title: '国际刊号', sort: true, fixed: 'left'},
-                {field: 'name', title: '刊物名称'},
-                {field: 'category', title: '类别', sort: true},
+                {field: 'name', title: '刊物名称', width: 210},
+                {field: 'category', title: '类别', width: 150, sort: true},
                 {field: 'language', title: '语种'},
-                {field: 'organizer', title: '主办单位'},
+                {field: 'organizer', title: '主办单位', width: 390},
                 {field: 'publicationFrequency', title: '刊期', sort: true},
                 {fixed: 'right', title: '操作', toolbar: '#pubBar'}
             ]]

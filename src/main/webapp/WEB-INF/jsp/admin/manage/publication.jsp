@@ -16,9 +16,19 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div class="layui-tab layui-tab-brief" style="padding: 50px;">
-            <button id="addPublication" type="button" class="layui-btn layui-btn-normal">
-                <i class="layui-icon">&#xe654;</i>新增期刊
-            </button>
+            <div class="layui-inline">
+                <button id="addPublication" type="button" class="layui-btn layui-btn-normal">
+                    <i class="layui-icon">&#xe654;</i>新增期刊
+                </button>
+
+                <div class="layui-input-inline" style="padding-left: 30px;">
+                    <input type="text" id="search" class="layui-input" placeholder="搜索刊物..."/>
+                </div>
+                <button type="button" id="searchBtn" class="layui-btn layui-btn-sm">
+                    <i class="layui-icon">&#xe615;</i>
+                </button>
+            </div>
+
             <ul class="layui-tab-title">
                 <li class="${ "_ALL".equals(category) ? "layui-this" : "" }"><a
                         href='<c:url value="/admin/manage/publication"><c:param name="category" value="_ALL"/></c:url>'>所有期刊</a>
@@ -64,8 +74,8 @@
 
 <script type="text/html" id="pubBar">
     <a class="layui-btn layui-btn-xs" lay-event="content">查看详情</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-    <a class="layui-btn layui-btn-xs" lay-event="setCoverPicture">设置封面图片</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="setCoverPicture">设置封面图片</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>
 </script>
 
@@ -97,7 +107,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">国际刊号: </label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="issn" class="layui-input" required lay-verify="required"/>
+                                    <input type="text" name="issn" class="layui-input" required lay-verify="required|issn"/>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -143,6 +153,13 @@
                 `,
                 success: function (index) {
                     form.render();
+                    //表单验证功能
+                    form.verify({
+                        issn: [
+                            /^(ISSN|eISSN) [\S]{4}\-[\S]{4}$/
+                            , '国际刊号格式不正确,例：ISSN 1002-6487'
+                        ]
+                    });
                 },
                 btn: ['确定'],
                 yes: function (index) {
@@ -191,8 +208,8 @@
                 {field: 'name', title: '刊物名称'},
                 {field: 'category', title: '类别', sort: true},
                 {field: 'language', title: '语种'},
-                {field: 'organizer', title: '主办单位'},
-                {field: 'publicationFrequency', title: '刊期', sort: true},
+                {field: 'organizer', title: '主办单位', width: 210},
+                {field: 'publicationFrequency', title: '刊期', width: 95, sort: true},
                 {fixed: 'right', title: '操作', width: 300, toolbar: '#pubBar'}
             ]]
         });
@@ -205,65 +222,68 @@
 
             if (event === 'edit') {
 
-                const title = '修改 ' + publication + ' 的信息';
+                const title = '修改 ' + obj.data.name + ' 的信息';
 
                 layer.open({
                     title: title,
                     type: 1,
+                    area: ['80%', '90%'],
                     content:
                         `
-                        <form class="layui-form" lay-filter="editPubForm">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">刊物名称: </label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="name" class="layui-input" required lay-verify="required" value="` + publication.name + `" />
+                        <div style="padding: 50px;">
+                            <form class="layui-form" lay-filter="editPubForm">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">刊物名称: </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="name" class="layui-input" required lay-verify="required" value="` + publication.name + `" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">国际刊号: </label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="issn" class="layui-input" required lay-verify="required" value="` + publication.issn + `" />
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">国际刊号: </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="issn" class="layui-input" required lay-verify="required|issn" value="` + publication.issn + `" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">刊物类型: </label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="category" value="教科文艺" title="教科文艺" />
-                                    <input type="radio" name="category" value="经济管理" title="经济管理" />
-                                    <input type="radio" name="category" value="基础科学" title="基础科学" />
-                                    <input type="radio" name="category" value="社会科学" title="社会科学" />
-                                    <input type="radio" name="category" value="工程科技" title="工程科技" />
-                                    <input type="radio" name="category" value="信息科技" title="信息科技" />
-                                    <input type="radio" name="category" value="农业科技" title="农业科技" />
-                                    <input type="radio" name="category" value="医药卫生" title="医药卫生" />
-                                    <input type="radio" name="category" value="哲学政法" title="哲学政法" />
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">刊物类型: </label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="category" value="教科文艺" title="教科文艺" />
+                                        <input type="radio" name="category" value="经济管理" title="经济管理" />
+                                        <input type="radio" name="category" value="基础科学" title="基础科学" />
+                                        <input type="radio" name="category" value="社会科学" title="社会科学" />
+                                        <input type="radio" name="category" value="工程科技" title="工程科技" />
+                                        <input type="radio" name="category" value="信息科技" title="信息科技" />
+                                        <input type="radio" name="category" value="农业科技" title="农业科技" />
+                                        <input type="radio" name="category" value="医药卫生" title="医药卫生" />
+                                        <input type="radio" name="category" value="哲学政法" title="哲学政法" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">主办单位: </label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="organizer" class="layui-input" value="` + publication.organizer + `" />
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">主办单位: </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="organizer" class="layui-input" value="` + publication.organizer + `" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">刊期: </label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="publicationFrequency" class="layui-input" value="` + publication.publicationFrequency + `" />
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">刊期: </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="publicationFrequency" class="layui-input" value="` + publication.publicationFrequency + `" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">语种: </label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="language" class="layui-input" value="` + publication.language + `" />
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">语种: </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="language" class="layui-input" value="` + publication.language + `" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">简介: </label>
-                                <div class="layui-input-block">
-                                    <textarea name="info" class="layui-textarea">` + publication.info + `</textarea>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">简介: </label>
+                                    <div class="layui-input-block">
+                                        <textarea name="info" class="layui-textarea">` + publication.info + `</textarea>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                         `,
                     btn: ['确定'],
                     yes: function (index) {
@@ -288,6 +308,13 @@
                         $('input[value=' + publication.category + ']:radio').attr('checked', true);
 
                         form.render();
+                        //表单验证功能
+                        form.verify({
+                            issn: [
+                                /^(ISSN|eISSN) [\S]{4}\-[\S]{4}$/
+                                , '国际刊号格式不正确,例：ISSN 1002-6487'
+                            ]
+                        });
                     },
                 });
 
@@ -320,10 +347,11 @@
                 layer.open({
                     title: title,
                     type: 1,
+                    area: ['29%', '34%'],
                     content:
                         `
                         <form id="setCoverPictureForm" class="layui-form" enctype="multipart/form-data" method="post" lay-filter="setCoverPictureForm">
-                            <div class="layui-form-item layui-form-text">
+                            <div class="layui-form-item layui-form-text" style="padding-top: 10px;">
                                 <label class="layui-form-label">请选择图片</label>
                                 <input type="file" accept=".jpg" name="coverPicture" class="layui-btn" required/>
                             </div>
@@ -362,6 +390,21 @@
             }
 
             return false;
+        });
+
+        // 搜索事件
+        $('#searchBtn').click(function () {
+            const searchStr = $('#search').val();
+
+            table.reloadData('pubList', {
+                where: {
+                    'category': '${category}',
+                    'search': searchStr,
+                },
+                page: {
+                    curr: 1
+                },
+            });
         });
     });
 </script>

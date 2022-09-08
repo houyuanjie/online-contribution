@@ -22,7 +22,7 @@
                     <label class="layui-form-label">投往期刊</label>
 
                     <div class="layui-input-inline">
-                        <select name="category" lay-filter="category" required>
+                        <select name="category" lay-filter="category" required lay-verify="required">
                             <option value="">请选择期刊类型</option>
                             <option value="教科文艺">教科文艺</option>
                             <option value="经济管理">经济管理</option>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="layui-inline">
                         <div class="layui-input-inline">
-                            <select id="publication" name="publication" required>
+                            <select id="publication" name="publication" required lay-verify="required">
                                 <option value="">请先选择期刊类型</option>
                             </select>
                         </div>
@@ -90,7 +90,7 @@
 
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <input type="submit" class="layui-btn" lay-filter="formSubmit" value="立即提交"/>
+                        <input type="submit" class="layui-btn" lay-submit lay-filter="formSubmit" value="立即提交"/>
                         <input type="reset" class="layui-btn layui-btn-primary" value="重置"/>
                     </div>
                 </div>
