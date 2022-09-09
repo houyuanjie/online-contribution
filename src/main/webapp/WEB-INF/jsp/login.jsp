@@ -91,8 +91,17 @@
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">密 码：</label>
                                             <div class="layui-input-inline">
-                                                <input type="password" name="password" lay-verify="required|password"
+                                                <input type="password" id="passwordReg" name="password" lay-verify="required|password"
                                                        class="layui-input" placeholder="请输入密码"/>
+                                            </div>
+                                            <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+                                        </div>
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">确认密码：</label>
+                                            <div class="layui-input-inline">
+                                                <input type="password" lay-verify="required|confirmPass"
+                                                       class="layui-input" placeholder="请再次输入密码"/>
                                             </div>
                                             <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
                                         </div>
@@ -196,10 +205,11 @@
     </div>
 
     <script>
-        layui.use(["element", "form", "layer"], function () {
+        layui.use(["element", "form", "layer", "jquery"], function () {
             var element = layui.element;
             var form = layui.form;
             var layer = layui.layer;
+            var $ = layui.jquery;
 
             //表单验证功能
             form.verify({
@@ -221,7 +231,10 @@
                 , phone: [
                     /^\d{11}$/
                     , "手机号必须为11位数字"
-                ],
+                ], confirmPass: function (value, item) {
+                    if ($('#passwordReg').val() !== value)
+                        return '两次密码输入不一致！';
+                }
             });
         })
     </script>
